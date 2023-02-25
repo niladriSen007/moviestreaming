@@ -5,9 +5,9 @@ import SwitchTabs from '../../../components/switchTabs/SwitchTabs'
 import { useFetch } from '../../../hooks/useFetch'
 
 
-const Trending = () => {
+const Popular = () => {
 
-  const [queryTab,setQueryTab] = useState("day")
+  const [queryTab,setQueryTab] = useState("movie")
 
       const onTabChange = (tab) =>{
             // const res = useFetch(`/all/${tab}`)
@@ -16,7 +16,7 @@ const Trending = () => {
       }
 
 
-        const {data,loading} = useFetch(`/trending/all/${queryTab}`)
+        const {data,loading} = useFetch(`/${queryTab}/popular`)
         
         console.log(data?.results)
         
@@ -33,12 +33,12 @@ const Trending = () => {
   return (
     <div className='carouselSection'>
             <ContentWrapper>
-                        <span className="carouselTitle">Trending</span>
-                        <SwitchTabs  data={["Day","Week"]} onTabChange={onTabChange}/>
+                        <span className="carouselTitle">What's Popular</span>
+                        <SwitchTabs  data={["Movie","Tv"]} onTabChange={onTabChange}/>
             </ContentWrapper>
-            <Carousel  trendingMovies={data?.results} loading={loading}/>
+            <Carousel  queryTab={queryTab} trendingMovies={data?.results} loading={loading}/>
     </div>
   )
 }
 
-export default Trending
+export default Popular

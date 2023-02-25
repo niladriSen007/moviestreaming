@@ -6,7 +6,7 @@ const SwitchTabs = ({data,onTabChange}) => {
       const [selectedTab,setSelectedTab] = useState(0)
       const [left,setLeft] = useState(0)
 
-      const [timeTab,setTimeTab]= useState("Day")
+      const [timeTab,setTimeTab]= useState(data[0])
 
       const switchTime = (t) =>{
                   setTimeTab(t)

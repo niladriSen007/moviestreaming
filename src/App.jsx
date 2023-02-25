@@ -9,7 +9,7 @@ import Details from './pages/Details/Details'
 import Explore from './pages/Explore/Explore'
 import Home from './pages/Home/Home'
 import SearchResult from './pages/SearchResult/SearchResult'
-import { getApiConfig } from './store/movieSlice'
+import { getApiConfig, getGenres } from './store/movieSlice'
 import { fetchDataFromApi } from './utils/api'
 
 function App() {
@@ -20,6 +20,7 @@ function App() {
 
   useEffect(()=>{
     fetchApiConfigration()
+    generesCall()
       },[])
 
       
@@ -38,6 +39,24 @@ function App() {
     {
       console.log(e)
     }
+  }
+
+  const generesCall = async() =>{
+    let promises = []
+    let endpoints = ["movie","tv"]
+    let allGenres = {}
+
+    endpoints.forEach(url=>{
+      promises.push(fetchDataFromApi(`/genre/${url}/list`))
+    })
+
+    const data = await Promise.all(promises)
+    // console.log(data[0].genres)
+    data.map(({genres})=>{
+      return genres.map(item=>(allGenres[item.id] = item))
+    })
+    // console.log(allGenres)
+    dispatch(getGenres(allGenres))
   }
 
 
@@ -60,7 +79,7 @@ function App() {
                 <Route path="/explore/:mediaType" element={<Explore />} />
                 <Route path="*" element={<PageNotFound />} />
         </Routes>
-        <div style={{height:"1000px" }}></div>
+        {/* <div style={{height:"1000px" }}></div> */}
         <Footer  />
       </BrowserRouter>
     </div>

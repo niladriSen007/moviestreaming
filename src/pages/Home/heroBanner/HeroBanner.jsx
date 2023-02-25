@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
 import Img from "../../../components/lazyLoadingImage/Img";
 import { useFetch } from "../../../hooks/useFetch";
@@ -54,7 +54,7 @@ const HeroBanner = () => {
               onKeyUp={handleSearchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <button>Search</button>
+            <Link to={`/search/${searchQuery}`}><button>Search</button></Link>
           </div>
         </div>
       </ContentWrapper>
